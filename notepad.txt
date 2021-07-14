@@ -1,0 +1,163 @@
+{
+  topic: 'CUSTOMERS_CREATE',
+  domain: 'rushikeshs-personal.myshopify.com',
+  payload: {
+    id: 5432574410906,
+    email: 'rushikesh.2198@outlook.com',
+    accepts_marketing: false,
+    created_at: '2021-07-11T11:04:54+05:30',
+    updated_at: '2021-07-11T11:04:54+05:30',
+    first_name: 'Rushikesh',
+    last_name: 'Badgujar',
+    orders_count: 0,
+    state: 'disabled',
+    total_spent: '0.00',
+    last_order_id: null,
+    note: '',
+    verified_email: true,
+    multipass_identifier: null,
+    tax_exempt: false,
+    phone: '+917507954082',
+    tags: '',
+    last_order_name: null,
+    currency: 'INR',
+    addresses: [ [Object] ],
+    accepts_marketing_updated_at: '2021-07-11T11:04:54+05:30',
+    marketing_opt_in_level: null,
+    tax_exemptions: [],
+    admin_graphql_api_id: 'gid://shopify/Customer/5432574410906',
+    default_address: {
+      id: 6584668749978,
+      customer_id: 5432574410906,
+      first_name: 'Rushikesh',
+      last_name: 'Badgujar`',
+      company: '',
+      address1: '',
+      address2: '',
+      city: '',
+      province: '',
+      country: '',
+      zip: '',
+      phone: '',
+      name: 'Rushikesh Badgujar`',
+      province_code: null,
+      country_code: null,
+      country_name: '',
+      default: true
+    }
+  }
+}
+
+
+
+
+{
+    title: "code basic test",
+    startsAt: "2019-01-01",
+    endsAt: "2020-01-01",
+    usageLimit: 10,
+    appliesOncePerCustomer: true,
+    customerSelection: {
+      all: true
+    }
+    code: "123456",
+    customerGets: {
+      value: {
+        discountAmount:  {
+          amount: 1.00,
+          each: true
+        }
+      }
+      items: {
+        products: {
+          productsToAdd: ["gid://shopify/Product/1536578748438"]
+        }
+      }
+    }}
+
+
+    gql`
+      mutation discountCodeBasicCreate {
+        discountCodeBasicCreate(basicCodeDiscount:{
+                  title: "Coupon code attempt 1",
+                  startsAt: "2019-01-01",
+                  endsAt: selectedDate,
+                  usageLimit: 1,
+                  appliesOncePerCustomer: true,
+                  customerSelection: {
+                    all: true
+                  },
+                  code: coupon,
+                  customerGets: {
+                    value: {
+                      percentage: discountNumber/100
+                    },
+                    items: {
+                      all: true
+                    }
+                  }} ) {
+          userErrors { field message code }
+          codeDiscountNode {
+            id
+              codeDiscount {
+              ... on DiscountCodeBasic {
+                title
+                summary
+                status
+                codes (first:10) {
+                  edges {
+                    node {
+                      code
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      ` : gql`
+      mutation discountCodeBasicCreate {
+        discountCodeBasicCreate(basicCodeDiscount:{
+                  title: "Coupon code attempt 1",
+                  startsAt: "2019-01-01",
+                  endsAt: selectedDate,
+                  usageLimit: 1,
+                  appliesOncePerCustomer: true,
+                  customerSelection: {
+                    all: true
+                  },
+                  code: coupon,
+                  customerGets: {
+                    value: {
+                      discountAmount: {
+                        amount:amount,
+                        appliesOnEachItem: true,
+                      }
+                    },
+                    items: {
+                      all: true
+                    }
+                  }} ) {
+          userErrors { field message code }
+          codeDiscountNode {
+            id
+              codeDiscount {
+              ... on DiscountCodeBasic {
+                title
+                summary
+                status
+                codes (first:10) {
+                  edges {
+                    node {
+                      code
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      `
+Coupon attempt 2
